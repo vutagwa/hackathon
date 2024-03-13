@@ -1,35 +1,34 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
+
 
 const Payment = () => {
   const [paymentStatus, setPaymentStatus] = useState(null);
 
-  const handlePaymentSuccess = (details, data) => {
-    // Handle payment success
-    console.log('Payment successful:', details);
-    setPaymentStatus('active');
-    // Make API call to update account status in your backend
-  };
-
-  const handlePaymentError = (err) => {
-    // Handle payment error
-    console.error('Payment error:', err);
-    setPaymentStatus('expired');
+  const handlePayment = async () => {
+    try {
+      const response = await axios.post('/api/payment', {
+        userId: 'user123', 
+        amount: 100000.00,    
+        currency: 'Ksh.'    
+      });
+      console.log(response.data);
+      setPaymentStatus(response.data);
+    } catch (error) {
+      console.error('Error processing payment:', error);
+    }
   };
 
   return (
     <div>
       <h2>Payment</h2>
-      <Link to="./components/userContent">
-      <PayPalButton
-        amount="10.00" // Example amount
-        onSuccess={handlePaymentSuccess}
-        onError={handlePaymentError}
-      />
+      <Link to="./userContent">
+      <button onClick={handlePayment}>Complete</button>
       </Link>
-      
+
       {paymentStatus && (
-        <p>Account Status: {paymentStatus === 'active' ? 'Active' : 'Expired'}</p>
+        <p>{paymentStatus}</p>
       )}
     </div>
   );
