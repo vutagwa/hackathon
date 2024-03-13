@@ -13,11 +13,11 @@ const Login = () => {
 
   return (
     <div style={{ 
-      width: '300px', 
+      width: '270px', 
       margin: '0 auto', 
-      padding: '20px', 
+      padding: '8px', 
       border: '1px solid #ccc', 
-      borderRadius: '5px' 
+      borderRadius: '7px',
     }}>
       <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Login</h2>
       <form onSubmit={handleLogin}>
@@ -51,7 +51,7 @@ const Login = () => {
           }}
           required
         />
-        <Link to="./components/Payment">
+        <Link to="/Interface">
           <button 
             type="submit" 
             style={{ 
