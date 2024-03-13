@@ -7,15 +7,29 @@ const Register = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('normal'); // Default to 'normal'
-  const [isValid, setIsValid] = useState(true); 
-  
+  const [creatorInfo, setCreatorInfo] = useState({});
+
   const handleChange = (e) => {
     setEmail(e.target.value);
   };
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log("Registering with:", email, fullName, userName, password, userType);
+    if (userType === 'normal') {
+      console.log("Registering as normal user with:", email, fullName, userName, password);
+      // Handle normal user registration
+    } else {
+      console.log("Registering as creator with:", email, fullName, userName, password, creatorInfo);
+      // Handle creator registration, possibly send data to Motoko backend
+    }
+  };
+
+  const handleCreatorInfoChange = (e) => {
+    const { name, value } = e.target;
+    setCreatorInfo(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
   return (
@@ -74,6 +88,28 @@ const Register = () => {
           style={styles.input}
           required
         />
+        {userType === 'creator' && (
+          <>
+            <input
+              type="text"
+              placeholder="Creator specific field 1"
+              name="field1"
+              value={creatorInfo.field1 || ''}
+              onChange={handleCreatorInfoChange}
+              style={styles.input}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Creator specific field 2"
+              name="field2"
+              value={creatorInfo.field2 || ''}
+              onChange={handleCreatorInfoChange}
+              style={styles.input}
+              required
+            />
+          </>
+        )}
         <button type="submit" style={styles.button}>Register</button>
       </form>
       <Link to="./components/Login" style={styles.link}>Already have an account? Sign in</Link>
