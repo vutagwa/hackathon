@@ -1,13 +1,11 @@
 import Shared "shared";
 import Http "mo:base/HTTP";
 
-module UserContent {
+module MhoreHack {
 
 
-  // Define a type to represent uploaded files
   type UploadedFile = {
-    fileName: Text;
-    // Other file metadata can be added here
+    title: Text;
   };
 
   // Define a map to store uploaded files by user
@@ -24,8 +22,8 @@ module UserContent {
     }
 
     // Process file upload
-    let fileName = body.fileName;
-    userUploadedFiles[user] := { fileName = fileName };
+    let title = body.title;
+    userUploadedFiles[user] := { title = title };
 
     // Return a success response
     return Http.respond { status = 200; body = "File uploaded successfully" };
