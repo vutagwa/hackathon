@@ -17,10 +17,8 @@ const Register = () => {
     e.preventDefault();
     if (userType === 'normal') {
       console.log("Registering as normal user with:", email, fullName, userName, password);
-      // Handle normal user registration
     } else {
       console.log("Registering as creator with:", email, fullName, userName, password, creatorInfo);
-      // Handle creator registration, possibly send data to Motoko backend
     }
   };
 
@@ -128,7 +126,13 @@ const Register = () => {
 const styles = {
   container: {
     textAlign: 'center',
-    marginTop: '50px',
+    margin: '100px',
+    width: '300px', 
+    padding: '20px', 
+    border: '1px solid #ccc', 
+    borderRadius: '7px' ,
+    backgroundColor: 'grey' ,
+
   },
   heading: {
     fontSize: '24px',

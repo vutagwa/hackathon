@@ -1,25 +1,39 @@
 import Shared "shared";
-import Http "mo:base/HTTP";
+import Http "mo:base/Http";
+import Blob "mo:base/Blob";
+import Debug "mo:base/Debug";
+
 
 module MhoreHack {
 
 
   type UploadedFile = {
     title: Text;
+    description: Text;
   };
 
   // Define a map to store uploaded files by user
   var userUploadedFiles : HashMap<Shared.UserId, UploadedFile> = HashMap.create();
 
   // Endpoint to handle file uploads
-  public func uploadFile(req : Http.Request) : async Http.Response {
-    let user = req.url.query."user"; 
-    let body = req.body;
-    
-    // Check if user exists and has permissions to upload
-    if (!Shared.isUserValid(user)) {
-      return Http.respond { status = 401; body = null };
-    }
+  public func handleUpload(file : Blob.Blob) : async Http.Response {
+    let boundary = Blob.randomBoundary();
+    let formData = Blob.multipartFormData({ "file": file }, boundary);
+
+    let headers = Http.Headers.init();
+    Http.Headers.set(headers, "Content-Type", "multipart/form-data; boundary=" # boundary);
+
+    let request = Http.Request {
+        url = "/api/upload";
+        method = Http.Post;
+        headers = headers;
+        body = Http.RequestBody.fromBlob(formData);
+        ...Http.Request.default
+    };
+
+    let response = await Http.request(request);
+    return response;
+};
 
     // Process file upload
     let title = body.title;
@@ -65,7 +79,6 @@ module MhoreHack {
     userId : Shared.UserId;
     amount : Nat64;
     currency : Text;
-    // Add more payment details as needed
   };
 
   // Function to process payment
@@ -114,7 +127,18 @@ module MhoreHack {
 
 actor Backend {
   public func getCreatorsContent(): async [Shared.Content] {
-    // Fetch content posted by creators
+     let apiUrl = "https://api.example.com/creators-content"; 
+
+    // Make an HTTP GET request to the API endpoint
+    let response = await Http.fetch(apiUrl, { 
+        method = Http.Method.GET;
+        headers = [];
+    });
+
+    // Check if the request was successful
+    if (response.status != Http.Status.OK) {
+    throw Http.Error("Request failed with status code: " # Int.toText(response.status));
+        return [];
   }
 
   public func likeContent(contentId: Shared.ContentId): async () {
@@ -130,7 +154,6 @@ actor Backend {
   }
 }
 
-}
 
 
 

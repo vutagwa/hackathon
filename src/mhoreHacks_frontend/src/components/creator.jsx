@@ -17,7 +17,7 @@ function creator() {
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const response = await axios.post('/api/upload', formData, {
+      const response = await axios.post('./interface', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -45,7 +45,7 @@ function creator() {
     <div>
       <h1>File Upload</h1>
       <input type="file" onChange={handleFileChange} />
-      <Link to="./creator">
+      <Link to="./interface">
       <button onClick={handleUpload}>Upload</button>
       </Link>
       <p>{uploadStatus}</p>
