@@ -3,9 +3,7 @@ import Login from './components/Login';
 import Register from './components/Register'; 
 import Payment from './components/Payment';
 import Dashboard from './components/dashboard';
-import creatorlogin from './components/creatorlogin';
-
-import creator from './components/creator';
+import Creator from './components/creator';
 
 
 
@@ -23,7 +21,7 @@ const App = () => {
         <Route exact path="" element={<Payment/>}/>
         </Routes>
         <Routes>
-        <Route exact path="" element={<creator/>}/>
+        <Route exact path="" element={<Creator/>}/>
       </Routes>
       <Routes>
       <Route exact path="" element={<Dashboard/>}/>

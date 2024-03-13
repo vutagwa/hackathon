@@ -46,6 +46,7 @@ const Register = () => {
           Normal
         </label>
         <label>
+        
           <input
             type="radio"
             value="creator"
@@ -90,24 +91,31 @@ const Register = () => {
         />
         {userType === 'creator' && (
           <>
-            <input
-              type="text"
-              placeholder="Creator specific field 1"
-              name="field1"
-              value={creatorInfo.field1 || ''}
-              onChange={handleCreatorInfoChange}
-              style={styles.input}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Creator specific field 2"
-              name="field2"
-              value={creatorInfo.field2 || ''}
-              onChange={handleCreatorInfoChange}
-              style={styles.input}
-              required
-            />
+            <select
+                name="contmode"
+                value={creatorInfo.contType || ''}
+                onChange={handleCreatorInfoChange}
+                style={styles.input}
+                required
+            >
+              <option value="">Select mode</option>
+                <option value="video">Video</option>
+                 <option value="image">Image</option>
+                <option value="document">document</option>
+</select>
+<select
+                name="conttype"
+                value={creatorInfo.contType || ''}
+                onChange={handleCreatorInfoChange}
+                style={styles.input}
+                required
+            >
+              <option value="">Select Content Type</option>
+                <option value="Education">Education</option>
+                 <option value="Music">Music</option>
+                <option value="health">health</option>
+
+</select>
           </>
         )}
         <button type="submit" style={styles.button}>Register</button>
