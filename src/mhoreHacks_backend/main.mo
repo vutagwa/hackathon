@@ -59,4 +59,48 @@ module MhoreHack {
         return Http.respond { status = 404; body = null };
     }
   }
+ 
+ // Define a type for payment details
+  type PaymentDetails = {
+    userId : Shared.UserId;
+    amount : Nat64;
+    currency : Text;
+    // Add more payment details as needed
+  };
+
+  // Function to process payment
+  public func processPayment(details : PaymentDetails) : async Text {
+    // Perform payment processing here, e.g., interact with a cryptocurrency payment gateway
+    // For simplicity, let's assume the payment is successful
+    Shared.activateAccount(details.userId);
+    return "Account activated, you have subscribed to more DAPP";
+  }
+
+  // Endpoint to handle payment requests
+  public func handlePayment(req : Http.Request) : async Http.Response {
+    let body = await Http.getBody(req);
+    let details = decodeJson(body);
+    let result = await processPayment(details);
+    return Http.respond { status = 200; body = result };
+  }
+
+  // Helper function to decode JSON
+  private func decodeJson(body : Blob) : PaymentDetails {
+    let json = Http.blobToText(body);
+    return Json.decode<PaymentDetails>(json) # switch to your JSON decoding method
+      |err| Debug.print("Error decoding JSON: " # err) # Handle error appropriately
+      |ok| ok;
+  }
+
+  // Expose the endpoint to the internet
+  public func main(request : Http.Request) : async Http.Response {
+    switch (request.url.path) {
+      case ["payment"]:
+        return await handlePayment(request);
+      case _:
+        return Http.respond { status = 404; body = null };
+    }
+  }
 }
+
+
