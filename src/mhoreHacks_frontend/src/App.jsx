@@ -6,13 +6,20 @@ import userContent from './components/userContent';
 
 
 
+
 const App = () => {
   return (
     <Router>
       <Routes> 
         <Route exact path="" element={<Login />} /> 
+        </Routes>
+        <Routes>
         <Route exact path="" element={<Register />} /> 
+        </Routes>
+        <Routes>
         <Route exact path="" element={<Payment/>}/>
+        </Routes>
+        <Routes>
         <Route exact path="" element={<userContent/>}/>
 
       </Routes>

@@ -45,13 +45,17 @@ function userContent() {
     <div>
       <h1>File Upload</h1>
       <input type="file" onChange={handleFileChange} />
+      <Link to="./userContent">
       <button onClick={handleUpload}>Upload</button>
+      </Link>
       <p>{uploadStatus}</p>
       {uploadedFileName && (
         <div>
           <h2>Uploaded File</h2>
           <p>{uploadedFileName}</p>
+          <Link to="./userContent">
           <button onClick={handleDelete}>Delete</button>
+      </Link>
           <p>{deleteStatus}</p>
         </div>
       )}
