@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 
-function userContent() {
+function creator() {
   const [file, setFile] = useState(null);
   const [uploadedFileName, setUploadedFileName] = useState('');
   const [uploadStatus, setUploadStatus] = useState('');
@@ -45,7 +45,7 @@ function userContent() {
     <div>
       <h1>File Upload</h1>
       <input type="file" onChange={handleFileChange} />
-      <Link to="./userContent">
+      <Link to="./creator">
       <button onClick={handleUpload}>Upload</button>
       </Link>
       <p>{uploadStatus}</p>
@@ -53,7 +53,7 @@ function userContent() {
         <div>
           <h2>Uploaded File</h2>
           <p>{uploadedFileName}</p>
-          <Link to="./userContent">
+          <Link to="./creator">
           <button onClick={handleDelete}>Delete</button>
       </Link>
           <p>{deleteStatus}</p>
@@ -63,4 +63,4 @@ function userContent() {
   );
 }
 
-export default userContent;
+export default creator;

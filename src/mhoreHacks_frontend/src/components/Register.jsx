@@ -6,6 +6,7 @@ const Register = () => {
   const [fullName, setFullName] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [userType, setUserType] = useState('normal'); // Default to 'normal'
   const [isValid, setIsValid] = useState(true); 
   
   const handleChange = (e) => {
@@ -14,12 +15,32 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log("Registering with:", email, fullName, userName, password);
+    console.log("Registering with:", email, fullName, userName, password, userType);
   };
 
   return (
     <div style={styles.container}>
       <h2 style={styles.heading}>Register</h2>
+      <div style={styles.userTypeContainer}>
+        <label>
+          <input
+            type="radio"
+            value="normal"
+            checked={userType === 'normal'}
+            onChange={() => setUserType('normal')}
+          />
+          Normal
+        </label>
+        <label>
+          <input
+            type="radio"
+            value="creator"
+            checked={userType === 'creator'}
+            onChange={() => setUserType('creator')}
+          />
+          Creator
+        </label>
+      </div>
       <form onSubmit={handleRegister}>
         <input
           type="email"
@@ -55,7 +76,7 @@ const Register = () => {
         />
         <button type="submit" style={styles.button}>Register</button>
       </form>
-      <Link to="./userContent" style={styles.link}>Already have an account? Sign in</Link>
+      <Link to="./components/Login" style={styles.link}>Already have an account? Sign in</Link>
     </div>
   );
 };
@@ -91,6 +112,11 @@ const styles = {
     display: 'block',
     textDecoration: 'none',
     color: '#007bff',
+  },
+  userTypeContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: '20px',
   },
 };
 

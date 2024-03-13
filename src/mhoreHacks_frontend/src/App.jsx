@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login'; 
 import Register from './components/Register'; 
 import Payment from './components/Payment';
-import userContent from './components/userContent';
+import creator from './components/creator';
 
 
 
@@ -20,7 +20,7 @@ const App = () => {
         <Route exact path="" element={<Payment/>}/>
         </Routes>
         <Routes>
-        <Route exact path="" element={<userContent/>}/>
+        <Route exact path="" element={<creator/>}/>
 
       </Routes>
     </Router>

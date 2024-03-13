@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 const Payment = () => {
   const [paymentStatus, setPaymentStatus] = useState(null);
 
-  const handlePayment = async () => {
+  const handlePayment = async (amount) => {
     try {
       const response = await axios.post('/api/payment', {
         userId: 'user123',
-        amount: 100000.00,
+        amount: amount,
         currency: 'Ksh.'
       });
       console.log(response.data);
@@ -22,9 +22,33 @@ const Payment = () => {
   return (
     <div style={styles.container}>
       <h2 style={styles.heading}>Payment</h2>
-      <Link to="./userContent">
-        <button style={styles.button} onClick={handlePayment}>Complete</button>
-      </Link>
+
+      <div style={styles.subscriptionPlans}>
+        <div style={styles.plan}>
+          <h3>Yearly Subscription</h3>
+          <p>Ksh.2000</p>
+          <Link to="./components/Login"><button style={styles.button} onClick={() => handlePayment(2000)}>Subscribe</button></Link>
+        </div>
+
+        <div style={styles.plan}>
+          <h3>Monthly Subscription</h3>
+          <p>Ksh.500</p>
+          <Link to="./components/Login"><button style={styles.button} onClick={() => handlePayment(500)}>Subscribe</button></Link>
+          
+        </div>
+
+        <div style={styles.plan}>
+          <h3>Weekly Subscription</h3>
+          <p>Ksh.300</p>
+          <Link to="./components/Login"><button style={styles.button} onClick={() => handlePayment(300)}>Subscribe</button></Link>
+        </div>
+
+        <div style={styles.plan}>
+          <h3>Daily Subscription</h3>
+          <p>Ksh.50</p>
+          <Link to="./components/Login"> <button style={styles.button} onClick={() => handlePayment(50)}>Subscribe</button></Link>
+        </div>
+      </div>
 
       {paymentStatus && (
         <p style={styles.message}>{paymentStatus}</p>
@@ -42,13 +66,23 @@ const styles = {
     fontSize: '24px',
     fontWeight: 'bold',
   },
+  subscriptionPlans: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    marginTop: '30px',
+  },
+  plan: {
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    padding: '20px',
+    width: '200px',
+  },
   button: {
     backgroundColor: '#007bff',
     color: 'white',
     padding: '10px 20px',
     borderRadius: '5px',
     cursor: 'pointer',
-    marginTop: '20px',
     border: 'none',
     textDecoration: 'none',
   },

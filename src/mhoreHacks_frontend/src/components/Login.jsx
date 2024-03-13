@@ -51,7 +51,7 @@ const Login = () => {
           }}
           required
         />
-        <Link to="./components/Register">
+        <Link to="./components/Payment">
           <button 
             type="submit" 
             style={{ 
