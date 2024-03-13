@@ -3,7 +3,7 @@
     "node": ">=16.0.0",
     "npm": ">=7.0.0"
   },
-  "name": "mhoreHacks",
+  "name": "mhorehacks",
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "prebuild": "npm run prebuild --workspaces --if-present",
@@ -16,10 +16,19 @@
     "src/mhoreHacks_frontend"
   ],
   "dependencies": {
+    "axios": "^1.6.7",
+    "express": "^4.18.3",
+    "multer": "^1.4.5-lts.1",
     "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4"
-  }
+  },
+  "description": "Welcome to your new mhoreHacks project and to the internet computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

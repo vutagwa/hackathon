@@ -1,14 +1,21 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import login from './components/login'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; 
+import Login from './components/Login'; 
+import Register from './components/Register'; 
+import Payment from './components/Payment';
+import userContent from './components/userContent';
 
-const App = () =>{
+
+
+const App = () => {
   return (
     <Router>
-      <div>
-          <Route exact path="/login" component={login} />
-          <Route exact path="/regester" component={rejester} />
-      
-      </div>
+      <Routes> 
+        <Route exact path="" element={<Login />} /> 
+        <Route exact path="" element={<Register />} /> 
+        <Route exact path="" element={<Payment/>}/>
+        <Route exact path="" element={<userContent/>}/>
+
+      </Routes>
     </Router>
   );
 }
