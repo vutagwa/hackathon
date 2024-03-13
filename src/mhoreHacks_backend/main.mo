@@ -13,7 +13,7 @@ module MhoreHack {
 
   // Endpoint to handle file uploads
   public func uploadFile(req : Http.Request) : async Http.Response {
-    let user = req.url.query."user"; // Assuming you pass the user ID in the query string
+    let user = req.url.query."user"; 
     let body = req.body;
     
     // Check if user exists and has permissions to upload
@@ -70,8 +70,7 @@ module MhoreHack {
 
   // Function to process payment
   public func processPayment(details : PaymentDetails) : async Text {
-    // Perform payment processing here, e.g., interact with a cryptocurrency payment gateway
-    // For simplicity, let's assume the payment is successful
+    // Perform payment processing here, 
     Shared.activateAccount(details.userId);
     return "Account activated, you have subscribed to more DAPP";
   }
@@ -101,6 +100,38 @@ module MhoreHack {
         return Http.respond { status = 404; body = null };
     }
   }
+  
+  type ContentId = Nat;
+  type Content = {
+    id: ContentId;
+    creatorId: Nat;
+    text: Text;
+    likes: Nat;
+    dislikes: Nat;
+    comments: [Text];
+  };
+  import Shared "shared";
+
+actor Backend {
+  public func getCreatorsContent(): async [Shared.Content] {
+    // Fetch content posted by creators
+  }
+
+  public func likeContent(contentId: Shared.ContentId): async () {
+    // Logic to handle liking content
+  }
+
+  public func dislikeContent(contentId: Shared.ContentId): async () {
+    // Logic to handle disliking content
+  }
+
+  public func commentOnContent(contentId: Shared.ContentId, comment: Text): async () {
+    // Logic to handle commenting on content
+  }
 }
+
+}
+
+
 
 

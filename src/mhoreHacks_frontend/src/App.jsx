@@ -4,6 +4,7 @@ import Register from './components/Register';
 import Payment from './components/Payment';
 import Dashboard from './components/dashboard';
 import Creator from './components/creator';
+import Interface from './components/interface'
 
 
 
@@ -27,8 +28,9 @@ const App = () => {
       <Route exact path="" element={<Dashboard/>}/>
       </Routes>
       <Routes>
-      <Route exact path="" element={<creatorlogin/>}/>
+      <Route exact path="" element={<Interface/>}/>
       </Routes>
+      
     </Router>
   );
 }
