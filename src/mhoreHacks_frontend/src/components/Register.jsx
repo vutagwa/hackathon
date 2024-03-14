@@ -20,7 +20,6 @@ const Register = () => {
     } else {
       console.log("Registering as creator with:", email, fullName, userName, password, creatorInfo);
     }
-    
   };
 
   const handleCreatorInfoChange = (e) => {
@@ -117,11 +116,11 @@ const Register = () => {
 </select>
           </>
         )}
-              <Link to="/interface"><button type="submit" style={styles.button}>Register</button></Link>
+              <Link to="/payment"><button type="submit" style={styles.button}>Register</button></Link>
 
         
       </form>
-      <Link to=" " style={styles.link}>Already have an account? Sign in</Link>
+      <Link to="" style={styles.link}>Already have an account? Sign in</Link>
     </div>
   );
 };

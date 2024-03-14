@@ -108,7 +108,7 @@ module MhoreHack {
     }
   }
 
-  // Function to handle content interactions
+  // Functions to handle content interactions
   service ContentService {
     public func likeContent(contentId: Shared.ContentId): async () {
       // Logic to handle liking content
@@ -119,7 +119,38 @@ module MhoreHack {
     }
 
     public func commentOnContent(contentId: Shared.ContentId, comment: Text): async () {
-      // Logic to handle commenting on content
-    }
+  let foundContent = findContentById(contentId);
+  
+  if (foundContent != null) {
+    foundContent.comments := foundContent.comments # [comment];
+        updateContent(foundContent);
+    
+    
+    Debug.print("Comment added successfully!");
+  } else {
+    
+    Debug.print("Content not found.");
+  }
+}
+
+
+func findContentById(contentId: Shared.ContentId): ?Content {
+
+  return contentMap[contentId];
+}
+
+
+func updateContent(content: Content): async () {
+  await saveContent(content);
+}
+
+/
+var contentMap : HashMap<Shared.ContentId, Content> = HashMap.create();
+
+
+func saveContent(content: Content): async () {
+  Debug.print("Content saved:");
+  Debug.print(content);
+}
   }
 }

@@ -49,7 +49,6 @@ function Dashboard({ creatorId }) {
           <h2>Profile</h2>
           <p>Name: {creatorProfile.name}</p>
           <p>Email: {creatorProfile.email}</p>
-          {/* Add more profile details as needed */}
         </div>
       )}
 
@@ -58,7 +57,6 @@ function Dashboard({ creatorId }) {
         {creatorContent.map(content => (
           <li key={content.id}>
             {content.title}
-            {/* Add more content details as needed */}
           </li>
         ))}
       </ul>
@@ -67,7 +65,6 @@ function Dashboard({ creatorId }) {
         <div>
           <h2>Viewership Statistics</h2>
           <p>Total Views: {viewershipStats.totalViews}</p>
-          {/* Add more statistics as needed */}
         </div>
       )}
     </div>

@@ -24,29 +24,31 @@ const Payment = () => {
       <h2 style={styles.heading}>Payment</h2>
 
       <div style={styles.subscriptionPlans}>
-        {/* Subscription plans */}
+        
         <div style={styles.plan}>
           <h3>Yearly Subscription</h3>
-          <p>Ksh.2000</p>
-          <button style={styles.button} onClick={() => handlePayment(2000)}>Subscribe</button>
+          <p>Ksh.5000</p>
+          <Link to=" " ><button style={styles.button} onClick={() => handlePayment(5000)}>Subscribe</button></Link>
+
+          
         </div>
 
         <div style={styles.plan}>
           <h3>Monthly Subscription</h3>
-          <p>Ksh.500</p>
-          <button style={styles.button} onClick={() => handlePayment(500)}>Subscribe</button>
+          <p>Ksh.2000</p>
+          <Link to=" " ><button style={styles.button} onClick={() => handlePayment(2000)}>Subscribe</button></Link>
         </div>
 
         <div style={styles.plan}>
           <h3>Weekly Subscription</h3>
-          <p>Ksh.300</p>
-          <button style={styles.button} onClick={() => handlePayment(300)}>Subscribe</button>
+          <p>Ksh.500</p>
+          <Link to=" " ><button style={styles.button} onClick={() => handlePayment(500)}>Subscribe</button></Link>
         </div>
 
         <div style={styles.plan}>
           <h3>Daily Subscription</h3>
-          <p>Ksh.50</p>
-          <button style={styles.button} onClick={() => handlePayment(50)}>Subscribe</button>
+          <p>Ksh.100</p>
+          <Link to=" " ><button style={styles.button} onClick={() => handlePayment(100)}>Subscribe</button></Link>
         </div>
       </div>
 
@@ -65,6 +67,7 @@ const styles = {
   heading: {
     fontSize: '24px',
     fontWeight: 'bold',
+    color: '#333', 
   },
   subscriptionPlans: {
     display: 'flex',
@@ -88,7 +91,7 @@ const styles = {
   },
   message: {
     marginTop: '20px',
-    color: '#28a745', // Green color
+    color: '#28a745', 
   },
 };
 
