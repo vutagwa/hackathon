@@ -121,7 +121,7 @@ const Register = () => {
 
         
       </form>
-      <Link to="/login" style={styles.link}>Already have an account? Sign in</Link>
+      <Link to=" " style={styles.link}>Already have an account? Sign in</Link>
     </div>
   );
 };
