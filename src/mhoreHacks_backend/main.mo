@@ -42,7 +42,7 @@ module MhoreHack {
     };
   }
 
-  // Endpoint to handle user login and registration
+  // handle user login and registration
   service {
     public func login(email: Text, password: Text) : async Bool {
       return await UserManagement.authenticate(email, password);
@@ -53,15 +53,32 @@ module MhoreHack {
     };
   };
 
-  // Endpoint to handle file uploads and deletions
+  // handle file uploads and deletions
   service {
-    public func handleUpload(file : Blob.Blob) : async Http.Response {
-      // Handle file upload logic here
-    };
+    public func handleUpload(file: Blob.Blob) : async Text {
+    let fileName = Text.fromUtf8(file.fileName);
 
-    public func deleteFile(req : Http.Request) : async Http.Response {
-      // Handle file deletion logic here
-    };
+    Debug.print("uploaded file: " # fileName);
+
+    return fileName;
+  }
+  // Define a map to store uploaded files by filename
+  var uploadedFiles : HashMap.Text<Text, Blob.Blob> = HashMap.create();
+
+  // Function to handle file deletion
+  public func deleteFile(req : Http.Request) : async Http.Response {
+    let fileName = req.url.query."fileName";
+
+    if (!HashMap.hasKey(uploadedFiles, fileName)) {
+      return Http.respond { status = 404; body = "File not found" };
+    }
+
+    HashMap.delete(uploadedFiles, fileName);
+
+    return Http.respond { status = 200; body = "File deleted successfully" };
+  }
+}
+
   }
 
   // Endpoint to handle payment requests
