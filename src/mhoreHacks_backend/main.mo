@@ -16,6 +16,31 @@ module MhoreHack {
     email: Text;
     password: Text;
   };
+  // Define a type for content
+type Content = {
+  id: Nat;
+  text: Text;
+  likes: Nat;
+  dislikes: Nat;
+  comments: [Text];
+};
+
+
+public shared(query: Text) : [Content] {
+  let filteredContent = allContent;
+  if (query != "") {
+    filteredContent := Array.filter((item: Content) =>
+      Text.contains(item.text, query)
+    , filteredContent);
+  }
+  filteredContent;
+}
+
+// Define an endpoint to fetch content
+endpoint content(query: Text) : async [Content] {
+  shared(query);
+}
+
 
   var users : HashMap.Text<Text, User> = HashMap.fromList([]);
 

@@ -4,49 +4,26 @@ import axios from 'axios';
 const BackendBaseUrl = 'http://backend-url'; 
 
 function UserInterface() {
+  const BackendBaseUrl = 'http://backend-url'; 
+
+function UserInterface() {
   const [content, setContent] = useState([]);
   const [commentText, setCommentText] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchContent();
-  }, []);
+  }, [searchQuery]);
 
   const fetchContent = async () => {
     try {
-      const response = await axios.get(`${BackendBaseUrl}/content`);
+      const response = await axios.get(`${BackendBaseUrl}/content?query=${searchQuery}`);
       setContent(response.data);
     } catch (error) {
       console.error('Error fetching content:', error);
     }
   };
 
-  const handleLike = async (contentId) => {
-    try {
-      await axios.post(`${BackendBaseUrl}/like`, { contentId });
-      fetchContent();
-    } catch (error) {
-      console.error('Error liking content:', error);
-    }
-  };
-
-  const handleDislike = async (contentId) => {
-    try {
-      await axios.post(`${BackendBaseUrl}/dislike`, { contentId });
-      fetchContent();
-    } catch (error) {
-      console.error('Error disliking content:', error);
-    }
-  };
-
-  const handleComment = async (contentId) => {
-    try {
-      await axios.post(`${BackendBaseUrl}/comment`, { contentId, comment: commentText });
-      setCommentText('');
-      fetchContent();
-    } catch (error) {
-      console.error('Error commenting on content:', error);
-    }
-  };
 
   return (
     <div>
@@ -72,6 +49,7 @@ function UserInterface() {
       ))}
     </div>
   );
+}
 }
 
 export default UserInterface;
