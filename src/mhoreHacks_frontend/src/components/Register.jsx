@@ -116,7 +116,9 @@ const Register = () => {
 </select>
           </>
         )}
-        <button type="submit" style={styles.button}>Register</button>
+              <Link to="/interface"><button type="submit" style={styles.button}>Register</button></Link>
+
+        
       </form>
       <Link to="./components/Login" style={styles.link}>Already have an account? Sign in</Link>
     </div>
@@ -131,7 +133,6 @@ const styles = {
     padding: '20px', 
     border: '1px solid #ccc', 
     borderRadius: '7px' ,
-    backgroundColor: 'grey' ,
 
   },
   heading: {
@@ -160,6 +161,7 @@ const styles = {
     display: 'block',
     textDecoration: 'none',
     color: '#007bff',
+    fontSize: '15px',
   },
   userTypeContainer: {
     display: 'flex',

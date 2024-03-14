@@ -70,7 +70,8 @@ const Login = () => {
           }}
           required
         />
-        <button 
+              <Link to="/interface">
+                <button 
           type="submit" 
           style={{ 
             width: '100%', 
@@ -83,8 +84,20 @@ const Login = () => {
             cursor: 'pointer' 
           }}>
           Login
-        </button>
+        </button></Link>      
+        <Link to="/register" style={{
+          marginTop: '4px',
+        display: 'block',
+        textDecoration: 'none',
+        color: '#007bff',
+        fontSize: '15px'
+        }}>Don't have an account? Sign in</Link>
+
+
+        
+
       </form>
+      
     </div>
   );
 };

@@ -13,22 +13,12 @@ const App = () => {
   return (
     <Router>
       <Routes> 
-        <Route exact path="" element={<Login />} /> 
-        </Routes>
-        <Routes>
-        <Route exact path="" element={<Register />} /> 
-        </Routes>
-        <Routes>
-        <Route exact path="" element={<Payment/>}/>
-        </Routes>
-        <Routes>
-        <Route exact path="" element={<Creator/>}/>
-      </Routes>
-      <Routes>
-      <Route exact path="" element={<Dashboard/>}/>
-      </Routes>
-      <Routes>
-      <Route exact path="" element={<Interface/>}/>
+        <Route exact path="" index element={<Login />} /> 
+        <Route exact path="/Register" element={<Register />} /> 
+        <Route exact path="/Payment" element={<Payment/>}/>
+        <Route exact path="/creator" element={<Creator/>}/>     
+      <Route exact path="/dashboard" element={<Dashboard/>}/>
+      <Route exact path="/interface" element={<Interface/>}/>
       </Routes>
       
     </Router>
