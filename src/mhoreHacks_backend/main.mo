@@ -89,10 +89,16 @@ module MhoreHack {
   }
 
   // Endpoint to fetch content from external API
-  service {
-    public func fetchContent(): async [Shared.Content] {
-      // Handle fetching content logic here
-    };
+ // Endpoint to handle payment requests
+service {
+  public func handlePayment(req : Http.Request) : async Http.Response {
+    let body = await Http.getBody(req);
+    let details = decodeJson(body);
+    let result = await processPayment(details);
+    return Http.respond { status = 200; body = "You have successfully subscribed to the selected payment plan" };
+  }
+}
+
 
     public func likeContent(contentId: Shared.ContentId): async () {
       // Logic to handle liking content

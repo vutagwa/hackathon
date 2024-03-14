@@ -24,29 +24,29 @@ const Payment = () => {
       <h2 style={styles.heading}>Payment</h2>
 
       <div style={styles.subscriptionPlans}>
+        {/* Subscription plans */}
         <div style={styles.plan}>
           <h3>Yearly Subscription</h3>
           <p>Ksh.2000</p>
-          <Link to="./components/Login"><button style={styles.button} onClick={() => handlePayment(2000)}>Subscribe</button></Link>
+          <button style={styles.button} onClick={() => handlePayment(2000)}>Subscribe</button>
         </div>
 
         <div style={styles.plan}>
           <h3>Monthly Subscription</h3>
           <p>Ksh.500</p>
-          <Link to="./components/Login"><button style={styles.button} onClick={() => handlePayment(500)}>Subscribe</button></Link>
-          
+          <button style={styles.button} onClick={() => handlePayment(500)}>Subscribe</button>
         </div>
 
         <div style={styles.plan}>
           <h3>Weekly Subscription</h3>
           <p>Ksh.300</p>
-          <Link to="./components/Login"><button style={styles.button} onClick={() => handlePayment(300)}>Subscribe</button></Link>
+          <button style={styles.button} onClick={() => handlePayment(300)}>Subscribe</button>
         </div>
 
         <div style={styles.plan}>
           <h3>Daily Subscription</h3>
           <p>Ksh.50</p>
-          <Link to="./components/Login"> <button style={styles.button} onClick={() => handlePayment(50)}>Subscribe</button></Link>
+          <button style={styles.button} onClick={() => handlePayment(50)}>Subscribe</button>
         </div>
       </div>
 
