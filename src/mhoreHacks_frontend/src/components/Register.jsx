@@ -6,7 +6,7 @@ const Register = () => {
   const [fullName, setFullName] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState('normal'); // Default to 'normal'
+  const [userType, setUserType] = useState('normal'); 
   const [creatorInfo, setCreatorInfo] = useState({});
 
   const handleChange = (e) => {
@@ -116,8 +116,8 @@ const Register = () => {
 </select>
           </>
         )}
-              <Link to="/payment"><button type="submit" style={styles.button}>Register</button></Link>
-
+                
+        <Link to="/payment"><button type="submit" style={styles.button}>Register</button></Link>
         
       </form>
       <Link to="" style={styles.link}>Already have an account? Sign in</Link>
