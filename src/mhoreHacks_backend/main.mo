@@ -3,6 +3,8 @@ import Text "mo:base/Text";
 import Time "mo:base/Time";
 import Http "mo:base/Http";
 import Blob "mo:base/Blob";
+
+
 module MhoreHack {
 
 type File = {
@@ -26,10 +28,10 @@ type File = {
     comments: [Text];
   };
 
-  // Define a map to store uploaded files by filename
+  //map to store uploaded files by filename
   var uploadedFiles : HashMap<Text, Blob.Blob> = HashMap.create();
 
-  // Define a function to filter content
+  //function to filter content
   shared(sharedQuery: Text): [Content] {
     let filteredContent = allContent;
     if (sharedQuery != "") {
@@ -40,7 +42,7 @@ type File = {
     filteredContent;
   }
 
-  // Define an endpoint to fetch content
+  // fetch content
   endpoint content(query: Text): async [Content] {
     shared(query);
   }
@@ -69,7 +71,7 @@ type File = {
     };
   }
 
-  // Handle user login and registration
+  //user login and registration
   service {
     public func login(email: Text, password: Text): async Bool {
       return await UserManagement.authenticate(email, password);
@@ -127,7 +129,7 @@ type File = {
     }
   };
 
-  // Function to handle file uploads
+  // handle file uploads
   public shared({
     title: Text;
     description: Text;
@@ -147,7 +149,7 @@ type File = {
     true;
   }
 
-  // Function to handle file deletion
+  //handle file deletion
   public shared({
     title: Text;
   }) : async Bool {
@@ -160,15 +162,14 @@ type File = {
     }
   }
 
-  // Function to handle file retrieval
+  //handle file retrieval
   public shared({
     title: Text;
   }) : async ?File {
     uploadedFiles.getOpt(title);
   }
-};
 
-  // Endpoint to handle payment requests
+  //handle payment requests
   aactor PaymentBackend {
 
   public func processPayment(userId: Text, amount: Nat, currency: Text) : async Text {
@@ -187,18 +188,25 @@ type File = {
     return true;
   }
 
+
 };
 
 
-  // Functions to handle content interactions
+  // handle content interactions
   service ContentService {
     public func likeContent(contentId: Shared.ContentId): async () {
-      // Logic to handle liking content
-    }
+    let content = await Backend.getContentById(contentId);
 
-    public func dislikeContent(contentId: Shared.ContentId): async () {
-      // Logic to handle disliking content
+    if (content != null) {
+        content.likes += 1;
+
+        await Backend.updateContent(content);
+       
+        return "Content liked successfully.";
+    } else {
+        return "Content not found.";
     }
+}
 
     public func commentOnContent(contentId: Shared.ContentId, comment: Text): async () {
   let foundContent = findContentById(contentId);
@@ -226,7 +234,7 @@ func updateContent(content: Content): async () {
   await saveContent(content);
 }
 
-/
+
 var contentMap : HashMap<Shared.ContentId, Content> = HashMap.create();
 
 
@@ -235,4 +243,5 @@ func saveContent(content: Content): async () {
   Debug.print(content);
 }
   }
-}
+  
+};

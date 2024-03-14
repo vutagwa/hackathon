@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userType, setUserType] = useState('normal'); // Default to normal user
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent form submission
@@ -13,7 +14,7 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, userType }), // Include userType in the request body
       });
       if (response.ok) {
         // Successful login
@@ -70,8 +71,28 @@ const Login = () => {
           }}
           required
         />
-              <Link to="/interface">
-                <button 
+        {/* Radio button for selecting user type */}
+        <div style={{ marginBottom: '15px' }}>
+          <label>
+            <input
+              type="radio"
+              value="normal"
+              checked={userType === 'normal'}
+              onChange={() => setUserType('normal')}
+            />
+            Normal User
+          </label>
+          <label style={{ marginLeft: '10px' }}>
+            <input
+              type="radio"
+              value="creator"
+              checked={userType === 'creator'}
+              onChange={() => setUserType('creator')}
+            />
+            Creator
+          </label>
+        </div>
+        <button 
           type="submit" 
           style={{ 
             width: '100%', 
@@ -84,20 +105,15 @@ const Login = () => {
             cursor: 'pointer' 
           }}>
           Login
-        </button></Link>      
+        </button>
         <Link to="/register" style={{
-          marginTop: '4px',
-        display: 'block',
-        textDecoration: 'none',
-        color: '#007bff',
-        fontSize: '15px'
-        }}>Don't have an account? Sign in</Link>
-
-
-        
-
+          marginTop: '10px',
+          display: 'block',
+          textDecoration: 'none',
+          color: '#007bff',
+          fontSize: '15px'
+        }}>Don't have an account? Sign up</Link>
       </form>
-      
     </div>
   );
 };

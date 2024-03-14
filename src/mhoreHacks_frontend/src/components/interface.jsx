@@ -59,11 +59,11 @@ function UserInterface() {
       <div style={styles.sidebar}>
         <h2>Categories</h2>
         <ul style={styles.navigationList} >
-          <li><Link to="/creator?category=sports">Sports</Link></li>
-          <li><Link to="/creator?category=education">Education</Link></li>
-          <li><Link to="/creator?category=music">Music</Link></li>
-          <li><Link to="/creator?category=kpop">Kpop</Link></li>
-          <li><Link to="/creator?category=movies">Movies</Link></li>
+          <li><Link to="/creator?category=sports" style={{textDecoration: 'none', color: 'black'}}>MUSIC</Link></li>
+          <li><Link to="/creator?category=education" style={{textDecoration: 'none', color: 'black'}}>VIDEOS</Link></li>
+          <li><Link to="/creator?category=music" style={{textDecoration: 'none', color: 'black'}}>PODCASTS</Link></li>
+          <li><Link to="/creator?category=kpop" style={{textDecoration: 'none', color: 'black'}}>IMAGES</Link></li>
+          <li><Link to="/creator?category=movies" style={{textDecoration: 'none', color: 'black'}}>DOCUMENTS</Link></li>
         </ul>
       </div>
       <div style={styles.content}>
