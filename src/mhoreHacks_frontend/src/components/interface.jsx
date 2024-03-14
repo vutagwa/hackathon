@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-const BackendBaseUrl = 'http://backend-url'; 
+const BackendBaseUrl = 'http://backend-url';
 
 function UserInterface() {
   const [content, setContent] = useState([]);
@@ -58,27 +59,11 @@ function UserInterface() {
       <div style={styles.sidebar}>
         <h2>Categories</h2>
         <ul style={styles.navigationList} >
-          <li><a href=""><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
-          <li><a href="#" style={{
-            textDecoration: 'none',
-            color: 'black',
-          }}>Sports</a></li>
-          <li><a href="#" style={{
-            textDecoration: 'none',
-            color: 'black',
-          }}>Education</a></li>
-          <li><a href="#" style={{
-            textDecoration: 'none',
-            color: 'black',
-          }}>Music</a></li>
-          <li><a href="#" style={{
-            textDecoration: 'none',
-            color: 'black',
-          }}>Kpop</a></li>
-          <li><a href="#" style={{
-            textDecoration: 'none',
-            color: 'black',
-          }}>Movies</a></li>
+          <li><Link to="/creator?category=sports">Sports</Link></li>
+          <li><Link to="/creator?category=education">Education</Link></li>
+          <li><Link to="/creator?category=music">Music</Link></li>
+          <li><Link to="/creator?category=kpop">Kpop</Link></li>
+          <li><Link to="/creator?category=movies">Movies</Link></li>
         </ul>
       </div>
       <div style={styles.content}>
@@ -120,7 +105,7 @@ const styles = {
   },
   sidebar: {
     flex: '0 0 20%',
-    backgroundColor: '#ff98',
+    backgroundColor: '#f0f0f0',
     padding: '10px',
   },
   content: {
@@ -136,20 +121,19 @@ const styles = {
   },
   contentItem: {
     marginBottom: '20px',
+    padding: '20px',
+    backgroundColor: '#fff',
+    borderRadius: '5px',
+    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
   },
   commentInput: {
     marginBottom: '10px',
     marginRight: '10px',
   },
   navigationList: {
-    width: '3rem',
-    height: '78vh',
     listStyle: 'none',
     padding: 0,
     margin: 0,
-    display: 'flex',
-    flexDirection: 'column',
-    columnSpacing: '300px',
   },
 };
 
