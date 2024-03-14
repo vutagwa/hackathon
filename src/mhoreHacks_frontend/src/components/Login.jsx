@@ -14,26 +14,24 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, userType }), // Include userType in the request body
+        body: JSON.stringify({ email, password, userType }), // Include userType in login request
       });
       if (response.ok) {
         // Successful login
         console.log("Login successful!");
-        // Redirect or set user authentication state here
       } else {
         // Failed login
         console.error("Login failed!");
-        // Handle error, such as displaying an error message
       }
     } catch (error) {
       console.error("Error during login:", error);
-      // Handle error
     }
   };
 
   return (
+    <body>
     <div style={{ 
-      width: '270px', 
+      width: '300px', 
       margin: '0 auto', 
       padding: '8px', 
       border: '1px solid #ccc', 
@@ -41,6 +39,26 @@ const Login = () => {
     }}>
       <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Login</h2>
       <form onSubmit={handleLogin}>
+        <div style={{ marginBottom: '15px' }}>
+          <label>
+            <input
+              type="radio"
+              value="normal"
+              checked={userType === 'normal'}
+              onChange={() => setUserType('normal')}
+            />
+            Normal User
+          </label>
+          <label style={{ marginLeft: '15px' }}>
+            <input
+              type="radio"
+              value="creator"
+              checked={userType === 'creator'}
+              onChange={() => setUserType('creator')}
+            />
+            Creator
+          </label>
+        </div>
         <input
           type="email"
           placeholder="Email"
@@ -71,50 +89,32 @@ const Login = () => {
           }}
           required
         />
-        {/* Radio button for selecting user type */}
-        <div style={{ marginBottom: '15px' }}>
-          <label>
-            <input
-              type="radio"
-              value="normal"
-              checked={userType === 'normal'}
-              onChange={() => setUserType('normal')}
-            />
-            Normal User
-          </label>
-          <label style={{ marginLeft: '10px' }}>
-            <input
-              type="radio"
-              value="creator"
-              checked={userType === 'creator'}
-              onChange={() => setUserType('creator')}
-            />
-            Creator
-          </label>
-        </div>
-        <button 
-          type="submit" 
-          style={{ 
-            width: '100%', 
-            backgroundColor: '#007bff', 
-            color: '#fff', 
-            padding: '10px', 
-            fontSize: '16px', 
-            border: 'none', 
-            borderRadius: '5px', 
-            cursor: 'pointer' 
-          }}>
-          Login
-        </button>
+       
+        <Link to="/register"><button 
+        type="submit" 
+        style={{ 
+          width: '200%', 
+          backgroundColor: '#007bff', 
+          position: 'center',
+          color: '#fff', 
+          padding:'20px', 
+          fontSize: '16px', 
+          border: 'none', 
+          borderRadius: '6px', 
+          cursor: 'pointer' 
+        }}>
+        Login
+      </button></Link>
         <Link to="/register" style={{
-          marginTop: '10px',
+          marginTop: '4px',
           display: 'block',
           textDecoration: 'none',
           color: '#007bff',
           fontSize: '15px'
-        }}>Don't have an account? Sign up</Link>
+        }}>Don't have an account? Sign in</Link>
       </form>
     </div>
+    </body>
   );
 };
 

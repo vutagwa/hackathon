@@ -31,6 +31,14 @@ const Register = () => {
   };
 
   return (
+    <body style={{  maxWidth: '20000px',
+    height: '590px',
+    margin: '0 auto',
+    padding: '20px',
+    background: 'linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(https://i.pinimg.com/236x/29/ff/1e/29ff1e5366dee43516a19d9cf8534f59.jpg)',
+    backgroundColor: 'transparent', 
+    backgroundSize: 'cover', 
+    backgroundRepeat: 'no-repeat',}}>
     <div style={styles.container}>
       <h2 style={styles.heading}>Register</h2>
       <div style={styles.userTypeContainer}>
@@ -122,6 +130,7 @@ const Register = () => {
       </form>
       <Link to="" style={styles.link}>Already have an account? Sign in</Link>
     </div>
+    </body>
   );
 };
 
