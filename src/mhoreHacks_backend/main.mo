@@ -1,9 +1,16 @@
+import HashMap "mo:base/HashMap";
+import Text "mo:base/Text";
+import Time "mo:base/Time";
+import Http "mo:base/Http";
+import Blob "mo:base/Blob";
 module MhoreHack {
 
-  // Define common types and variables
-  type UploadedFile = {
+type File = {
+    contentType: Text;
     title: Text;
     description: Text;
+    timestamp: Text;
+    content: Text;
   };
 
   type User = {
@@ -11,7 +18,6 @@ module MhoreHack {
     password: Text;
   };
 
-  // Define a type for content
   type Content = {
     id: Nat;
     text: Text;
@@ -74,39 +80,115 @@ module MhoreHack {
     };
   }
 
-  // Function to handle file uploads
-  service {
-    public func handleUpload(file: Blob.Blob): async Text {
-      let fileName = Text.fromUtf8(file.fileName);
+  var uploadedFiles : HashMap.Text<CreatorBackend.File> = HashMap.create();
 
-      Debug.print("uploaded file: " # fileName);
+  public shared({
+    type: Text;
+    title: Text;
+    description: Text;
+    timestamp: Text;
+    content: Text;
+  }) : async Bool {
+    uploadedFiles.put(file.title, file);
+    true;
+  };
 
-      return fileName;
+  public shared({
+    title: Text;
+  }) : async [File] {
+    switch (uploadedFiles.getOpt(title)) {
+      | null => [];
+      | optFile => [? optFile];
     }
+  };
 
-    // Function to handle file deletion
-    public func deleteFile(req : Http.Request): async Http.Response {
-      let fileName = req.url.query."fileName";
+  public shared(): async [File] {
+    uploadedFiles.values;
+  };
 
-      if (!HashMap.hasKey(uploadedFiles, fileName)) {
-        return Http.respond { status = 404; body = "File not found" };
-      }
+  public shared({
+    title: Text;
+  }) : async Bool {
+    uploadedFiles.delete(title);
+    true;
+  };
 
-      HashMap.delete(uploadedFiles, fileName);
+  public shared({
+    title: Text;
+    content: Text;
+  }) : async Bool {
+    switch (uploadedFiles.getOpt(title)) {
+      | null => false;
+      | Some(file) => {
+        let updatedFile = { file with content = content };
+        uploadedFiles.put(title, updatedFile);
+        true;
+      };
+    }
+  };
 
-      return Http.respond { status = 200; body = "File deleted successfully" };
+  // Function to handle file uploads
+  public shared({
+    title: Text;
+    description: Text;
+    contentType: Text;
+    timestamp: Text;
+    content: Text;
+  }) : async Bool {
+    let newFile = {
+      contentType = contentType;
+      title = title;
+      description = description;
+      timestamp = timestamp;
+      content = content;
+    };
+
+    uploadedFiles.put(title, newFile);
+    true;
+  }
+
+  // Function to handle file deletion
+  public shared({
+    title: Text;
+  }) : async Bool {
+    switch (uploadedFiles.getOpt(title)) {
+      | null => false;
+      | Some(_) => {
+        uploadedFiles.delete(title);
+        true;
+      };
     }
   }
+
+  // Function to handle file retrieval
+  public shared({
+    title: Text;
+  }) : async ?File {
+    uploadedFiles.getOpt(title);
+  }
+};
 
   // Endpoint to handle payment requests
-  service PaymentService {
-    public func handlePayment(req: Http.Request): async Http.Response {
-      let body = await Http.getBody(req);
-      let details = decodeJson(body);
-      let result = await processPayment(details);
-      return Http.respond { status = 200; body = "You have successfully subscribed to the selected payment plan" };
+  aactor PaymentBackend {
+
+  public func processPayment(userId: Text, amount: Nat, currency: Text) : async Text {
+    let paymentSuccessful = await simulatePaymentProcessing(amount);
+    if (paymentSuccessful) {
+      return "Payment processed successfully for " # userId # " of amount " # Nat.toText(amount) # " " # currency;
+    } else {
+      return "Payment failed for " # userId # ". Please try again.";
     }
   }
+
+  private func simulatePaymentProcessing(amount: Nat) : async Bool {
+    
+    let delay = amount * 100000; 
+    await Time.sleep(delay);
+    return true;
+  }
+
+};
+
 
   // Functions to handle content interactions
   service ContentService {

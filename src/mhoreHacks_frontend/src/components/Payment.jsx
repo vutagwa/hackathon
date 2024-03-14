@@ -2,20 +2,38 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+
 const Payment = () => {
   const [paymentStatus, setPaymentStatus] = useState(null);
+  const [selectedPlan, setSelectedPlan] = useState('monthly'); 
+  const [cardNumber, setCardNumber] = useState('');
+  const [amount, setAmount] = useState(1000);
 
-  const handlePayment = async (amount) => {
+  const handlePlanChange = (event) => {
+    setSelectedPlan(event.target.value);
+  };
+
+  // calculate total amount based on the selected plan
+  const calculateTotalAmount = () => {
+    const monthlyPrice = 1000;
+    const yearlyPrice = 10000;
+    return selectedPlan === 'monthly' ? monthlyPrice : yearlyPrice;
+  };
+
+  // Function to handle payment
+  const handlePayment = async () => {
     try {
-      const response = await axios.post('/api/payment', {
+      const totalAmount = calculateTotalAmount();
+      const response = await paymentBackend.processPayment({
         userId: 'user123',
-        amount: amount,
+        amount: totalAmount,
         currency: 'Ksh.'
       });
-      console.log(response.data);
-      setPaymentStatus(response.data);
+      console.log(response);
+      setPaymentStatus(response);
     } catch (error) {
       console.error('Error processing payment:', error);
+      setPaymentStatus('Payment failed. Please try again.');
     }
   };
 
@@ -24,28 +42,41 @@ const Payment = () => {
       <h2 style={styles.heading}>Payment</h2>
 
       <div style={styles.subscriptionPlans}>
-        
         <div style={styles.plan}>
-          <h3>Yearly Subscription</h3>
-          <p>Ksh.5000</p>
-          <Link to=" " ><button style={styles.button} onClick={() => handlePayment(5000)}>Subscribe</button></Link>
-
-          
+          <input
+            type="radio"
+            id="monthly"
+            name="plan"
+            value="monthly"
+            checked={selectedPlan === 'monthly'}
+            onChange={handlePlanChange}
+          />
+          <label style={styles.pay}>Monthly Plan (ksh.1000/month)</label>
         </div>
-
         <div style={styles.plan}>
-          <h3>Monthly Subscription</h3>
-          <p>Ksh.2000</p>
-          <Link to=" " ><button style={styles.button} onClick={() => handlePayment(2000)}>Subscribe</button></Link>
+          <input
+            type="radio"
+            id="yearly"
+            name="plan"
+            value="yearly"
+            checked={selectedPlan === 'yearly'}
+            onChange={handlePlanChange}
+          />
+          <label style={styles.pay}>Yearly Plan (ksh.10000/year)</label>
         </div>
-
-        <div style={styles.plan}>
-          <h3>Weekly Subscription</h3>
-          <p>Ksh.500</p>
-          <Link to=" " ><button style={styles.button} onClick={() => handlePayment(500)}>Subscribe</button></Link>
-        </div>
-
       </div>
+
+      <input
+        type="text"
+        placeholder="Enter Card Number"
+        value={cardNumber}
+        onChange={(e) => setCardNumber(e.target.value)}
+        style={styles.input}
+        required
+      />
+        <Link to="/Login"> <button style={styles.button} onClick={handlePayment}>Activate Account</button>
+</Link>
+
 
       {paymentStatus && (
         <p style={styles.message}>{paymentStatus}</p>
@@ -56,25 +87,25 @@ const Payment = () => {
 
 const styles = {
   container: {
-    backgroundColor: '',
     textAlign: 'center',
-    marginTop: '50px',
+    margin: '100px auto',
+    width: '300px',
+    padding: '20px',
+    border: '1px solid #ccc',
+    borderRadius: '7px',
   },
   heading: {
     fontSize: '24px',
     fontWeight: 'bold',
-    color: '#333', 
+    marginBottom: '20px',
   },
-  subscriptionPlans: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    marginTop: '30px',
-  },
-  plan: {
-    border: '1px solid #ccc',
+  input: {
+    width: '100%',
+    padding: '10px',
+    marginBottom: '10px',
     borderRadius: '5px',
-    padding: '20px',
-    width: '200px',
+    border: '1px solid #ccc',
+    boxSizing: 'border-box',
   },
   button: {
     backgroundColor: '#007bff',
@@ -83,11 +114,22 @@ const styles = {
     borderRadius: '5px',
     cursor: 'pointer',
     border: 'none',
-    textDecoration: 'none',
+  },
+  subscriptionPlans: {
+    textAlign: 'left',
+    marginTop: '20px',
+  },
+  plan: {
+    marginBottom: '10px',
+  },
+  pay: {
+    fontSize: '16px',
+    marginLeft: '10px',
   },
   message: {
     marginTop: '20px',
-    color: '#28a745', 
+    color: 'green',
+    fontWeight: 'bold',
   },
 };
 
