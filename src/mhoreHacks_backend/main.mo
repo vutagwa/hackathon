@@ -113,8 +113,6 @@ endpoint content(query: Text) : async [Content] {
     };
   }
 
-  // Endpoint to fetch content from external API
- // Endpoint to handle payment requests
 service {
   public func handlePayment(req : Http.Request) : async Http.Response {
     let body = await Http.getBody(req);
