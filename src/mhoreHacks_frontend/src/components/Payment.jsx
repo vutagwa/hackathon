@@ -45,11 +45,6 @@ const Payment = () => {
           <Link to=" " ><button style={styles.button} onClick={() => handlePayment(500)}>Subscribe</button></Link>
         </div>
 
-        <div style={styles.plan}>
-          <h3>Daily Subscription</h3>
-          <p>Ksh.100</p>
-          <Link to=" " ><button style={styles.button} onClick={() => handlePayment(100)}>Subscribe</button></Link>
-        </div>
       </div>
 
       {paymentStatus && (
@@ -61,6 +56,7 @@ const Payment = () => {
 
 const styles = {
   container: {
+    backgroundColor: '',
     textAlign: 'center',
     marginTop: '50px',
   },

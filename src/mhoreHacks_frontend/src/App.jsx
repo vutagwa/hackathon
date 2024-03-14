@@ -5,8 +5,6 @@ import Payment from './components/Payment';
 import Dashboard from './components/dashboard';
 import Creator from './components/creator';
 import Interface from './components/interface';
-import Processpayment from './components/processpayment';
-
 
 
 
@@ -21,8 +19,6 @@ const App = () => {
         <Route exact path="/creator" element={<Creator/>}/>     
       <Route exact path="/dashboard" element={<Dashboard/>}/>
       <Route exact path="/Interface" element={<Interface/>}/>
-      <Route exact path="/Processpayment" element={<Processpayment/>}/>
-
       </Routes>
       
     </Router>

@@ -54,4 +54,4 @@ const handleApprove = async (data, actions) => {
         }
 }
 
-export default PayPalPayment;
+export default processpayment;
