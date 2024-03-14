@@ -5,10 +5,29 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault(); // Prevent form submission
-    // Handle login logic here
-    console.log("Logging in with:", email, password);
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      if (response.ok) {
+        // Successful login
+        console.log("Login successful!");
+        // Redirect or set user authentication state here
+      } else {
+        // Failed login
+        console.error("Login failed!");
+        // Handle error, such as displaying an error message
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      // Handle error
+    }
   };
 
   return (
@@ -51,22 +70,20 @@ const Login = () => {
           }}
           required
         />
-        <Link to="/Interface">
-          <button 
-            type="submit" 
-            style={{ 
-              width: '100%', 
-              backgroundColor: '#007bff', 
-              color: '#fff', 
-              padding: '10px', 
-              fontSize: '16px', 
-              border: 'none', 
-              borderRadius: '5px', 
-              cursor: 'pointer' 
-            }}>
-            Login
-          </button>
-        </Link>
+        <button 
+          type="submit" 
+          style={{ 
+            width: '100%', 
+            backgroundColor: '#007bff', 
+            color: '#fff', 
+            padding: '10px', 
+            fontSize: '16px', 
+            border: 'none', 
+            borderRadius: '5px', 
+            cursor: 'pointer' 
+          }}>
+          Login
+        </button>
       </form>
     </div>
   );
