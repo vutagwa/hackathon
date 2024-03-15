@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const BackendBaseUrl = 'http://backend-url';
+const BackendBaseUrl = 'http://src/mhoreHacks_backend/main.mo';
 
 function UserInterface() {
   const [content, setContent] = useState([]);

@@ -14,11 +14,17 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, userType }), // Include userType in login request
+        body: JSON.stringify({ email, password, userType }), 
       });
       if (response.ok) {
-        // Successful login
-        console.log("Login successful!");
+        // Successful login - Redirect based on userType
+        if (userType === 'normal') {
+          // Redirect to normal user interface
+          window.location.href = '/interface';
+        } else if (userType === 'creator') {
+          // Redirect to creator interface
+          window.location.href = '/creator';
+        }
       } else {
         // Failed login
         console.error("Login failed!");
@@ -89,29 +95,28 @@ const Login = () => {
           }}
           required
         />
-       
-        <Link to="/register"><button 
-        type="submit" 
-        style={{ 
-          width: '200%', 
-          backgroundColor: '#007bff', 
-          position: 'center',
-          color: '#fff', 
-          padding:'20px', 
-          fontSize: '16px', 
-          border: 'none', 
-          borderRadius: '6px', 
-          cursor: 'pointer' 
-        }}>
-        Login
-      </button></Link>
+        <button 
+          type="submit" onClick={handleLogin()}
+          style={{ 
+            width: '100%', 
+            backgroundColor: '#007bff', 
+            color: '#fff', 
+            padding: '10px', 
+            fontSize: '16px', 
+            border: 'none', 
+            borderRadius: '6px', 
+            cursor: 'pointer' 
+          }}>
+          Login
+        </button>
         <Link to="/register" style={{
-          marginTop: '4px',
+          marginTop: '10px',
           display: 'block',
+          textAlign: 'center',
           textDecoration: 'none',
           color: '#007bff',
           fontSize: '15px'
-        }}>Don't have an account? Sign in</Link>
+        }}>Don't have an account? Sign up</Link>
       </form>
     </div>
     </body>
